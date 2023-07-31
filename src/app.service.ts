@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { NearService } from "./near/near.service";
+import { UserService } from "./user/user.service";
 
 @Injectable()
 export class AppService {
-  constructor(private readonly nearService: NearService) {}
+  constructor(private readonly userService: UserService) {}
   getHello(): string {
-    console.log(this.nearService.getAccount());
-
+    console.log(this.userService.createUser("Chau phu thinh"));
     return "Hello World!";
   }
 }
