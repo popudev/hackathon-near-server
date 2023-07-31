@@ -1,11 +1,11 @@
 import { Role } from "src/role/entities/role.entity";
 
 export class CreateUserDto {
-  username: string;
-  password: string;
-  nickname: String;
-  role?: Role;
-  first_name?: string;
-  last_name?: string;
-  avatar?: string;
+  full_name: string;
+  date_of_birth: string;
+  email: string;
+  phone: string;
+  national_identity_card: string;
+  national_identity_card_date: string;
+  // full_name, date_of_birth,email,phone,national_identity_card,national_identity_card_date
 }
