@@ -1,7 +1,8 @@
 import { Role } from "src/role/entities/role.entity";
 
 export class CreateUserDto {
-  id: string;
+  username: string;
+  password: string;
   nickname: String;
   role?: Role;
   first_name?: string;

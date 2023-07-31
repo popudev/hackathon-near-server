@@ -2,18 +2,17 @@ import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
-import { User } from "./entities/user.entity";
-import * as crypto from "crypto-js";
-import { SecureCrypt } from "src/utils/secure.crypt";
-
+import { CryptService } from "./crypt.service";
 @Injectable()
 export class UserService {
+  constructor(private readonly cryptService: CryptService) {}
+
   login(loginInfo: LoginUserDto) {
-    return SecureCrypt.encrypt<User>(loginInfo);
+    return this.cryptService.decryptLoginUserDto(loginInfo);
   }
 
   create(createUserDto: CreateUserDto) {
-    return "This action adds a new user";
+    return this.cryptService.encryptCreateUserDto(createUserDto);
   }
 
   findAll() {
