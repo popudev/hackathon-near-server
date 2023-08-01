@@ -11,6 +11,16 @@ export class MajorController {
   create(@Body() createMajorDto: CreateMajorDto) {
     return this.majorService.create(createMajorDto);
   }
+  @Get("/mock")
+  mock() {
+    const createMajorDto = {
+      thumbnail: "thanh",
+      name: "thanh",
+      description: "thanh",
+      number_of_credits_required: 1,
+    };
+    return this.majorService.create(createMajorDto);
+  }
 
   @Get()
   findAll() {

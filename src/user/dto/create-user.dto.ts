@@ -1,5 +1,3 @@
-import { Role } from "src/role/entities/role.entity";
-
 export class CreateUserDto {
   full_name: string;
   date_of_birth: string;

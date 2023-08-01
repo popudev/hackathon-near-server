@@ -1,7 +1,7 @@
 export class CreateMajorDto {
-  thumbnail: string | null;
+  major_id?: string;
+  thumbnail: string;
   name: string;
   description: string;
   number_of_credits_required: number;
-  number_students: number;
 }

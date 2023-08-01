@@ -4,9 +4,11 @@ import { AppService } from "./app.service";
 import { NearModule } from "./near/near.module";
 import { ConfigModule } from "@nestjs/config";
 import { UserModule } from "./user/user.module";
-import { RoleModule } from "./role/role.module";
-import { MajorModule } from "./major/major.module";
+
 import { JwtModule } from "@nestjs/jwt";
+
+import { MajorModule } from "./major/major.module";
+import { SubjectModule } from "./subject/subject.module";
 
 @Module({
   imports: [
@@ -19,8 +21,8 @@ import { JwtModule } from "@nestjs/jwt";
       secret: process.env.SECRET_KEY,
     }),
     UserModule,
-    RoleModule,
     MajorModule,
+    SubjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
