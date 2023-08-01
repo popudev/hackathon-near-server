@@ -16,10 +16,10 @@ export class UserController {
     const result = await this.userService.login({ username, password });
     if (result) {
       const accessToken = await this.jwtService.signAsync(result);
-      res.status(HttpStatus.OK).send({ accessToken, status: false });
+      res.status(HttpStatus.OK).send({ accessToken, status: true });
       return;
     }
-    res.status(HttpStatus.UNAUTHORIZED).send({ accessToken: null, status: true });
+    res.status(HttpStatus.UNAUTHORIZED).send({ accessToken: null, status: false });
   }
 
   @Get("createAdmin")
