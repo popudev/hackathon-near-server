@@ -6,20 +6,17 @@ import { SecureCrypt } from "src/utils/secure.service";
 @Injectable()
 export class MajorCryptService {
   public encryptCreateMajorDto(createMajorDto: CreateMajorDto) {
-    const { thumbnail, name, description } = createMajorDto;
+    const thumbnail = SecureCrypt.encrypt(createMajorDto.thumbnail);
+    const name = SecureCrypt.encrypt(createMajorDto.name);
+    const description = SecureCrypt.encrypt(createMajorDto.description);
 
-    const thumbnail_encrypt = thumbnail && SecureCrypt.encrypt(thumbnail);
-    const name_encrypt = SecureCrypt.encrypt(name);
-    const description_encrypt = SecureCrypt.encrypt(description);
-
-    return { thumbnail_encrypt, name_encrypt, description_encrypt };
+    return { thumbnail, name, description };
   }
 
   public decryptMajor(major: Major) {
-    const { thumbnail, name, description } = major;
-    const thumbnail_decrypt = thumbnail && SecureCrypt.decrypt(thumbnail);
-    const name_decrypt = SecureCrypt.decrypt(name);
-    const description_decrypt = SecureCrypt.decrypt(description);
-    return { thumbnail_decrypt, name_decrypt, description_decrypt };
+    const thumbnail = major.thumbnail && SecureCrypt.decrypt(major.thumbnail);
+    const name = SecureCrypt.decrypt(major.name);
+    const description = SecureCrypt.decrypt(major.description);
+    return { ...major, thumbnail, name, description };
   }
 }

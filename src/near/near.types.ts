@@ -1,3 +1,3 @@
 export interface NearContract {
-  [methodName: string]: (props?: { args?: Record<string, string>; gas?: number; amount?: number }) => Promise<any>;
+  [methodName: string]: (props?: { args?: Record<any, any>; gas?: number; amount?: number }) => Promise<any>;
 }

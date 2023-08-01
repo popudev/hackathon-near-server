@@ -4,8 +4,7 @@ import { AppService } from "./app.service";
 import { NearModule } from "./near/near.module";
 import { ConfigModule } from "@nestjs/config";
 import { UserModule } from "./user/user.module";
-import { RoleModule } from "./role/role.module";
-import { MajorModule } from './major/major.module';
+import { MajorModule } from "./major/major.module";
 
 @Module({
   imports: [
@@ -14,7 +13,6 @@ import { MajorModule } from './major/major.module';
       isGlobal: true,
     }),
     UserModule,
-    RoleModule,
     MajorModule,
   ],
   controllers: [AppController],
