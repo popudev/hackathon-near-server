@@ -5,6 +5,7 @@ import { NearModule } from "./near/near.module";
 import { ConfigModule } from "@nestjs/config";
 import { UserModule } from "./user/user.module";
 import { MajorModule } from "./major/major.module";
+import { SubjectModule } from './subject/subject.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MajorModule } from "./major/major.module";
     }),
     UserModule,
     MajorModule,
+    SubjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
