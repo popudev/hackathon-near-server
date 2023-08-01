@@ -3,6 +3,7 @@ import { NearService } from "src/near/near.service";
 import { NearContract } from "src/near/near.types";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./entities/user.entity";
+import { UserMetadata } from "types/entities";
 @Injectable()
 export class UserContract {
   private contract: NearContract;
@@ -32,7 +33,7 @@ export class UserContract {
     });
   }
 
-  async findUserByUsername(username: string) {
+  async findUserByUsername(username: string): Promise<UserMetadata> {
     return this.contract.get_user_metadata_by_username({ username });
   }
 

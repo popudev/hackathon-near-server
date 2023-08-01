@@ -5,21 +5,22 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { JwtService } from "@nestjs/jwt";
-
+import { UserPayload } from "types/responses";
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService, private jwtService: JwtService) {}
 
   @Post("login")
-  async login(@Body() LoginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
+  async login(@Body() LoginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response): Promise<UserPayload> {
     const { username, password } = LoginUserDto;
     const result = await this.userService.login({ username, password });
     if (result) {
       const accessToken = await this.jwtService.signAsync(result);
-      res.status(HttpStatus.OK).send({ accessToken, status: true });
-      return;
+      res.status(HttpStatus.OK);
+      return { accessToken, status: true };
     }
-    res.status(HttpStatus.UNAUTHORIZED).send({ accessToken: null, status: false });
+    res.status(HttpStatus.UNAUTHORIZED);
+    return { accessToken: null, status: false };
   }
 
   @Get("createAdmin")
