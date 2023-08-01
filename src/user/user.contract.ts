@@ -9,22 +9,34 @@ export class UserContract {
   constructor(private readonly nearService: NearService) {
     this.nearService
       .getContract({
-        viewMethods: ["get_all_user_metadata"],
-        changeMethods: ["create_user"],
+        viewMethods: ["get_all_user_metadata", "get_user_metadata_by_username"],
+        changeMethods: ["create_user", "create_admin_user"],
       })
       .then((contract) => (this.contract = contract));
   }
 
-  async createUser(createUserDto:CreateUserDto) {
-    const {  full_name, date_of_birth,email,phone,national_identity_card,national_identity_card_date } = createUserDto;
+  async createAdmin() {
+    this.contract.create_admin_user({ username: "admin", password: "admin" });
+  }
+
+  async createUser(createUserDto: CreateUserDto) {
+    const { full_name, date_of_birth, email, phone, national_identity_card, national_identity_card_date } =
+      createUserDto;
     return this.contract.create_user({
-      args: {
-        full_name, date_of_birth,email,phone,national_identity_card,national_identity_card_date
-      },
+      full_name,
+      date_of_birth,
+      email,
+      phone,
+      national_identity_card,
+      national_identity_card_date,
     });
   }
 
-  async findAllUser():Promise<User[]>{
+  async findUserByUsername(username: string) {
+    return this.contract.get_user_metadata_by_username({ username });
+  }
+
+  async findAllUser(): Promise<User[]> {
     return this.contract.get_all_user_metadata();
   }
 }
