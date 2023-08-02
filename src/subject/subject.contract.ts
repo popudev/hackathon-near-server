@@ -29,15 +29,13 @@ export class SubjectContract {
     });
 
     return this.contract.create_subject({
-      args: {
-        subject_id: randomUUID(),
-        thumbnail,
-        prerequisite_subject_id,
-        title,
-        description,
-        price,
-        number_of_credits,
-      },
+      subject_id: randomUUID(),
+      thumbnail,
+      prerequisite_subject_id,
+      title,
+      description,
+      price,
+      number_of_credits,
     });
   }
 

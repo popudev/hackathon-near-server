@@ -4,14 +4,21 @@ import { AppService } from "./app.service";
 import { NearModule } from "./near/near.module";
 import { ConfigModule } from "@nestjs/config";
 import { UserModule } from "./user/user.module";
+
+import { JwtModule } from "@nestjs/jwt";
+
 import { MajorModule } from "./major/major.module";
-import { SubjectModule } from './subject/subject.module';
+import { SubjectModule } from "./subject/subject.module";
 
 @Module({
   imports: [
     NearModule,
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET_KEY,
     }),
     UserModule,
     MajorModule,
