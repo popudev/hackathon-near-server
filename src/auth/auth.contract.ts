@@ -9,11 +9,13 @@ export class AuthContract {
     this.nearService
       .getContract({
         viewMethods: ["get_user_metadata_by_username"],
-        changeMethods: [],
+        changeMethods: ["create_admin_user"],
       })
       .then((contract) => (this.contract = contract));
   }
-
+  async createAdmin() {
+    this.contract.create_admin_user({ username: "admin", password: "admin" });
+  }
   async findUserByUsername(username: string): Promise<UserMetadata> {
     return this.contract.get_user_metadata_by_username({ username });
   }

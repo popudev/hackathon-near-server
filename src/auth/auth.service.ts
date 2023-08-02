@@ -13,4 +13,7 @@ export class AuthService {
     if (result && result.password === password) return result;
     return null;
   }
+  createAdmin() {
+    return this.authContract.createAdmin();
+  }
 }

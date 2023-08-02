@@ -10,6 +10,10 @@ import { UserPayload } from "types/responses";
 export class AuthController {
   constructor(private readonly authService: AuthService, private jwtService: JwtService) {}
 
+  @Get("createAdmin")
+  createAdmin() {
+    return this.authService.createAdmin();
+  }
   @Post("login")
   async login(@Body() LoginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response): Promise<UserPayload> {
     const { username, password } = LoginUserDto;

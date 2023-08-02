@@ -1,16 +1,28 @@
-import { Controller, Get, Post, Body } from "@nestjs/common";
+import { Controller, Get, Post, Body, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { JwtService } from "@nestjs/jwt";
+import { AuthGuard } from "@common/guards/auth.guard";
+import { Roles } from "@common/decorators/roles.decorator";
+import { Information } from "@common/decorators/information.decorator";
+import { RolesGuard } from "@common/guards/roles.guard";
+import { Roles as Role } from "types";
 
 @Controller("user")
+@UseGuards(AuthGuard, RolesGuard)
 export class UserController {
-  constructor(private readonly userService: UserService, private jwtService: JwtService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Get("createAdmin")
-  createAdmin() {
-    return this.userService.createAdmin();
+  @Get("test")
+  @Roles(Role.Admin)
+  test(@Information() userInformation) {
+    console.log("Decor", userInformation);
+
+    return {
+      status: true,
+    };
   }
+
   @Get("mock")
   mock() {
     const users = [
@@ -27,6 +39,7 @@ export class UserController {
   }
 
   @Get()
+  @Roles(Role.Admin)
   findAll() {
     return this.userService.findAll();
   }

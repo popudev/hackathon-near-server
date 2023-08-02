@@ -11,10 +11,6 @@ export class UserService {
     return this.userContract.createUser(userEncrypted);
   }
 
-  createAdmin() {
-    console.log("createAdmin");
-    return this.userContract.createAdmin();
-  }
 
   async findAll() {
     const usersEncrypted = await this.userContract.findAllUser();

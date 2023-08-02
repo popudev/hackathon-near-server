@@ -16,10 +16,6 @@ export class UserContract {
       .then((contract) => (this.contract = contract));
   }
 
-  async createAdmin() {
-    this.contract.create_admin_user({ username: "admin", password: "admin" });
-  }
-
   async createUser(createUserDto: CreateUserDto) {
     const { full_name, date_of_birth, email, phone, national_identity_card, national_identity_card_date } =
       createUserDto;
