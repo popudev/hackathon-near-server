@@ -1,38 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Post, Body } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { Response } from "express";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { LoginUserDto } from "./dto/login-user.dto";
 import { JwtService } from "@nestjs/jwt";
-import { UserPayload } from "types/responses";
+
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService, private jwtService: JwtService) {}
-
-  @Post("login")
-  async login(@Body() LoginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response): Promise<UserPayload> {
-    const { username, password } = LoginUserDto;
-    const result = await this.userService.login({ username, password });
-    if (result) {
-      const accessToken = await this.jwtService.signAsync(result);
-      res.status(HttpStatus.OK);
-      return { accessToken, status: true };
-    }
-    res.status(HttpStatus.UNAUTHORIZED);
-    return { accessToken: null, status: false };
-  }
 
   @Get("createAdmin")
   createAdmin() {
     return this.userService.createAdmin();
   }
-
-  @Get("login")
-  test(@Body() LoginUserDto: LoginUserDto) {
-    console.log("test");
-  }
-
   @Get("mock")
   mock() {
     const users = [
