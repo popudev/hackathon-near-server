@@ -12,23 +12,23 @@ export class UserContract {
     this.nearService
       .getContract({
         viewMethods: ["get_all_user_metadata", "get_user_metadata_by_username"],
-        changeMethods: ["create_student_user", "create_admin_user"],
+        changeMethods: ["create_instructor_user", "create_student_user", "create_admin_user"],
       })
       .then((contract) => (this.contract = contract));
   }
 
-  async createUser(createUserDto: CreateUserDto) {
-    const { full_name, date_of_birth, email, phone, national_identity_card, national_identity_card_date } =
-      createUserDto;
+  async createStudentUser(createUserDto: CreateUserDto) {
     return this.contract.create_student_user({
       args: {
-        user_id: randomUUID(),
-        full_name,
-        date_of_birth,
-        email,
-        phone,
-        national_identity_card,
-        national_identity_card_date,
+        ...createUserDto,
+      },
+    });
+  }
+
+  async createInstructorUser(createUserDto: CreateUserDto) {
+    return this.contract.create_instructor_user({
+      args: {
+        ...createUserDto,
       },
     });
   }
