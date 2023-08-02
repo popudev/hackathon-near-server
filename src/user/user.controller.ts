@@ -33,28 +33,33 @@ export class UserController {
     console.log("test");
   }
 
-  @Get("mock")
-  mock() {
-    const users = [
-      {
-        full_name: "Bui Manh Thanh",
-        date_of_birth: "25/10/2002",
-        email: "manhthanh147@gmail.com",
-        phone: "0328735659",
-        national_identity_card: "159753",
-        national_identity_card_date: "25/10/2023",
-      },
-    ];
-    return users.map((u) => this.userService.create(u));
-  }
+  // @Get("mock")
+  // mock() {
+  //   const users = [
+  //     {
+  //       full_name: "Bui Manh Thanh",
+  //       date_of_birth: "25/10/2002",
+  //       email: "manhthanh147@gmail.com",
+  //       phone: "0328735659",
+  //       national_identity_card: "159753",
+  //       national_identity_card_date: "25/10/2023",
+  //     },
+  //   ];
+  //   return users.map((u) => this.userService.createStudentUser(u));
+  // }
 
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
-  @Post()
-  register(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @Post("/register-student")
+  registerStudent(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createStudentUser(createUserDto);
+  }
+
+  @Post("/register-instructor")
+  registerInstructor(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createStudentUser(createUserDto);
   }
 }
