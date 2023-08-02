@@ -21,9 +21,20 @@ export class UserService {
     return null;
   }
 
-  create(createUserDto: CreateUserDto) {
+  createStudentUser(createUserDto: CreateUserDto) {
     const userEncrypted = this.userCryptService.encryptCreateUserDto(createUserDto);
-    return this.userContract.createUser(userEncrypted);
+    return this.userContract.createStudentUser({
+      user_id: createUserDto.user_id,
+      ...userEncrypted,
+    });
+  }
+
+  createInstructorUser(createUserDto: CreateUserDto) {
+    const userEncrypted = this.userCryptService.encryptCreateUserDto(createUserDto);
+    return this.userContract.createInstructorUser({
+      user_id: createUserDto.user_id,
+      ...userEncrypted,
+    });
   }
 
   createAdmin() {
