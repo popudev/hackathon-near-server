@@ -8,6 +8,6 @@ export class SecureCrypt {
 
   public static decrypt(code: string) {
     if (!process.env.SERECT_KEY) throw new Error("Gắn serect key vô để mã hóa dữ liệu lưu xuống blockchain");
-    return crypto.AES.decrypt(code, process.env.SERECT_KEY).toString();
+    return crypto.AES.decrypt(code, process.env.SERECT_KEY).toString(crypto.enc.Utf8);
   }
 }

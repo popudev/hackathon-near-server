@@ -19,6 +19,14 @@ export class SubjectContract {
 
   async createSubject(createSubject: CreateSubjectDto) {
     const { thumbnail, prerequisite_subject_id, title, description, price, number_of_credits } = createSubject;
+    console.log(" { thumbnail, prerequisite_subject_id, title, description, price, number_of_credits } : ", {
+      thumbnail,
+      prerequisite_subject_id,
+      title,
+      description,
+      price,
+      number_of_credits,
+    });
 
     return this.contract.create_subject({
       args: {
