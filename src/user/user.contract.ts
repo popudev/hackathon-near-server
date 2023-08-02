@@ -4,7 +4,6 @@ import { NearContract } from "src/near/near.types";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./entities/user.entity";
 import { randomUUID } from "crypto";
-import { UserMetadata } from "types/entities";
 @Injectable()
 export class UserContract {
   private contract: NearContract;
