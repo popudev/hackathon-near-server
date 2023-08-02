@@ -60,6 +60,6 @@ export class UserController {
 
   @Post("/register-instructor")
   registerInstructor(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createStudentUser(createUserDto);
+    return this.userService.createInstructorUser(createUserDto);
   }
 }
