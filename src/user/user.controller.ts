@@ -4,8 +4,8 @@ import { Response } from "express";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
-import { JwtService } from "@nestjs/jwt";
 import { UserPayload } from "types/responses";
+import { JwtService } from "@nestjs/jwt";
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService, private jwtService: JwtService) {}
@@ -45,11 +45,7 @@ export class UserController {
         national_identity_card_date: "25/10/2023",
       },
     ];
-<<<<<<< HEAD
     return users.map((u) => this.userService.create(u));
-=======
-    return users.forEach((u) => this.userService.create(u));
->>>>>>> master
   }
 
   @Get()
