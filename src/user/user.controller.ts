@@ -5,7 +5,7 @@ import { AuthGuard } from "@common/guards/auth.guard";
 import { Roles } from "@common/decorators/roles.decorator";
 import { Information } from "@common/decorators/information.decorator";
 import { RolesGuard } from "@common/guards/roles.guard";
-import { Roles as Role } from "types/entities";
+import { Roles as Role } from "types";
 import { ActiveUserDto } from "./dto/active-user.dto";
 
 @Controller("user")
