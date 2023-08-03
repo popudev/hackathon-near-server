@@ -5,6 +5,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./entities/user.entity";
 import { randomUUID } from "crypto";
 import { UserMetadata } from "types/entities";
+import { ActiveUserDto } from "./dto/active-user.dto";
 @Injectable()
 export class UserContract {
   private contract: NearContract;
@@ -12,7 +13,7 @@ export class UserContract {
     this.nearService
       .getContract({
         viewMethods: ["get_all_user_metadata", "get_user_metadata_by_username"],
-        changeMethods: ["create_instructor_user", "create_student_user", "create_admin_user"],
+        changeMethods: ["create_instructor_user", "create_student_user", "create_admin_user", "active_student_user"],
       })
       .then((contract) => (this.contract = contract));
   }
@@ -31,6 +32,14 @@ export class UserContract {
         ...createUserDto,
       },
     });
+  }
+
+  async activeStudent(activeStudentDto: ActiveUserDto) {
+    return this.contract.active_student_user({ ...activeStudentDto });
+  }
+
+  async activeInstructor(activeInstructorDto: ActiveUserDto) {
+    return this.contract.active_instructor_user({ ...activeInstructorDto });
   }
 
   async createAdmin() {

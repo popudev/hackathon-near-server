@@ -6,6 +6,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { UserPayload } from "types/responses";
 import { JwtService } from "@nestjs/jwt";
+import { ActiveUserDto } from "./dto/active-user.dto";
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService, private jwtService: JwtService) {}
@@ -33,21 +34,6 @@ export class UserController {
     console.log("test");
   }
 
-  // @Get("mock")
-  // mock() {
-  //   const users = [
-  //     {
-  //       full_name: "Bui Manh Thanh",
-  //       date_of_birth: "25/10/2002",
-  //       email: "manhthanh147@gmail.com",
-  //       phone: "0328735659",
-  //       national_identity_card: "159753",
-  //       national_identity_card_date: "25/10/2023",
-  //     },
-  //   ];
-  //   return users.map((u) => this.userService.createStudentUser(u));
-  // }
-
   @Get()
   findAll() {
     return this.userService.findAll();
@@ -66,5 +52,14 @@ export class UserController {
   @Post("/register-instructor")
   registerInstructor(@Body() createUserDto: CreateUserDto) {
     return this.userService.createInstructorUser(createUserDto);
+  }
+
+  @Post("/active/student")
+  activeStudent(@Body() activeStudentDto: ActiveUserDto) {
+    return this.userService.activeStudent(activeStudentDto);
+  }
+  @Post("/active/instructor")
+  activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
+    return this.userService.activeInstructor(activeInstructorDto);
   }
 }
