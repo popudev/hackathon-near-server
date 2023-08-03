@@ -18,6 +18,10 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "@common/*": ["./src/common/*"]
+    },
+    "typeRoots": ["../types"]
   }
 }

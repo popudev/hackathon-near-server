@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { LoginUserDto } from "./dto/login-user.dto";
 import { SecureCrypt } from "src/utils/secure.service";
 import { User } from "./entities/user.entity";
 import { ActiveUserDto } from "./dto/active-user.dto";
@@ -14,12 +13,6 @@ export class UserCryptService {
     const national_identity_card = SecureCrypt.encrypt(createUserDto.national_identity_card);
     const national_identity_card_date = SecureCrypt.encrypt(createUserDto.national_identity_card_date);
     return { full_name, date_of_birth, email, phone, national_identity_card, national_identity_card_date };
-  }
-
-  public encryptLoginUserDto(loginUserDto: LoginUserDto) {
-    const username = SecureCrypt.encrypt(loginUserDto.username);
-    const password = SecureCrypt.encrypt(loginUserDto.password);
-    return { username, password };
   }
 
   public encyptActiveUserDto(activeUserDto: ActiveUserDto) {
@@ -36,12 +29,5 @@ export class UserCryptService {
     const national_identity_card = SecureCrypt.decrypt(user.national_identity_card);
     const national_identity_card_date = SecureCrypt.decrypt(user.national_identity_card_date);
     return { ...user, full_name, date_of_birth, email, phone, national_identity_card, national_identity_card_date };
-  }
-
-  public decryptLoginUserDto(loginInfo: LoginUserDto) {
-    const { username, password } = loginInfo;
-    const usernameDecrypted = SecureCrypt.decrypt(username);
-    const passwordDecrypted = SecureCrypt.decrypt(password);
-    return { usernameDecrypted, passwordDecrypted };
   }
 }
