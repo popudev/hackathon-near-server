@@ -53,6 +53,11 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get("/instructor")
+  findInstructor() {
+    return this.userService.findAllInstructor();
+  }
+
   @Post("/register-student")
   registerStudent(@Body() createUserDto: CreateUserDto) {
     return this.userService.createStudentUser(createUserDto);

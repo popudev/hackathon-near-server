@@ -12,6 +12,7 @@ export class UserService {
   async login(loginInfo: LoginUserDto): Promise<UserMetadata | null> {
     const { username, password } = loginInfo;
     const result = await this.userContract.findUserByUsername(username);
+    console.log("result: ", result);
     if (result && result.password === password) return result;
     return null;
   }
@@ -45,6 +46,6 @@ export class UserService {
 
   async findAllInstructor() {
     const users = await this.findAll();
-    return users.map((u) => u);
+    return users.map((u) => u.role === "Instructor");
   }
 }
