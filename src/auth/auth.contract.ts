@@ -13,8 +13,8 @@ export class AuthContract {
       })
       .then((contract) => (this.contract = contract));
   }
-  async createAdmin() {
-    this.contract.create_admin_user({ username: "admin", password: "admin" });
+  async createAdmin(account: { username: string; password: string }) {
+    this.contract.create_admin_user(account);
   }
   async findUserByUsername(username: string): Promise<UserMetadata> {
     return this.contract.get_user_metadata_by_username({ username });
