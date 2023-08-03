@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body,Put, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Put, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthGuard } from "@common/guards/auth.guard";
@@ -14,15 +14,6 @@ import { AssignInstructorDto } from "./dto/assign-instructor.dto";
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get("test")
-  @Roles(Role.Admin)
-  test(@Information() userInformation) {
-    console.log("Decor", userInformation);
-    return {
-      status: true,
-    };
-  }
-
   @Get()
   @Roles(Role.Admin)
   findAll() {
@@ -30,8 +21,8 @@ export class UserController {
   }
 
   @Post("/instructor/assignment")
+  @Roles(Role.Admin)
   assignInstructor(@Body() assignInstructor: AssignInstructorDto) {
-    console.log("assignInstructor: ", assignInstructor);
     return this.userService.assignInstructor(assignInstructor);
   }
 
@@ -51,11 +42,13 @@ export class UserController {
   }
 
   @Put("/active/student")
+  @Roles(Role.Admin)
   activeStudent(@Body() activeStudentDto: ActiveUserDto) {
     return this.userService.activeStudent(activeStudentDto);
   }
 
   @Put("/active/instructor")
+  @Roles(Role.Admin)
   activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
     return this.userService.activeInstructor(activeInstructorDto);
   }

@@ -11,14 +11,17 @@ export class SubjectContract {
   constructor(private readonly nearService: NearService) {
     this.nearService
       .getContract({
-        viewMethods: ["get_all_subject_metadata","get_all_subject_metadata_by_major_id","get_all_subject_metadata_by_user_id"],
+        viewMethods: [
+          "get_all_subject_metadata",
+          "get_all_subject_metadata_by_major_id",
+          "get_all_subject_metadata_by_user_id",
+        ],
         changeMethods: ["create_subject"],
       })
       .then((contract) => (this.contract = contract));
   }
 
   async createSubject(createSubject: CreateSubjectDto) {
-    console.log("createSubject: ", createSubject);
     const { major_id, thumbnail, prerequisite_subject_id, title, description, price, number_of_credits } =
       createSubject;
     return this.contract.create_subject({
@@ -37,11 +40,11 @@ export class SubjectContract {
     return this.contract.get_all_subject_metadata();
   }
 
-  async findAllSubjectByMajorId(id:string): Promise<Subject[]> {
-    return this.contract.get_all_subject_metadata_by_major_id({major_id:id});
+  async findAllSubjectByMajorId(id: string): Promise<Subject[]> {
+    return this.contract.get_all_subject_metadata_by_major_id({ major_id: id });
   }
 
-  async findAllSubjectByUserId(id:string): Promise<Subject[]> {
-    return this.contract.get_all_subject_metadata_by_user_id({user_id:id});
+  async findAllSubjectByUserId(id: string): Promise<Subject[]> {
+    return this.contract.get_all_subject_metadata_by_user_id({ user_id: id });
   }
 }
