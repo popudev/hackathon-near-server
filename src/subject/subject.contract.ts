@@ -11,7 +11,7 @@ export class SubjectContract {
   constructor(private readonly nearService: NearService) {
     this.nearService
       .getContract({
-        viewMethods: ["get_all_subject_metadata"],
+        viewMethods: ["get_all_subject_metadata","get_all_subject_metadata_by_major_id"],
         changeMethods: ["create_subject"],
       })
       .then((contract) => (this.contract = contract));
@@ -35,5 +35,9 @@ export class SubjectContract {
 
   async findAllSubject(): Promise<Subject[]> {
     return this.contract.get_all_subject_metadata();
+  }
+
+  async findAllSubjectByMajorId(id:string): Promise<Subject[]> {
+    return this.contract.get_all_subject_metadata_by_major_id({major_id:id});
   }
 }

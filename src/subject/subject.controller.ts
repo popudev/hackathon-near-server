@@ -17,8 +17,16 @@ export class SubjectController {
     return this.subjectService.create(createSubjectDto);
   }
 
+  @Get("/major_id/:id")
+  findByMajorId(@Param("id") id:string) {
+    console.log("id: ", id);
+    return this.subjectService.findSubjectByMajorId(id);
+  }
+
   @Get()
   findAll() {
     return this.subjectService.findAll();
   }
+ 
+  
 }

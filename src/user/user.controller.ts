@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, Put, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body,Put, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthGuard } from "@common/guards/auth.guard";
@@ -18,7 +18,6 @@ export class UserController {
   @Roles(Role.Admin)
   test(@Information() userInformation) {
     console.log("Decor", userInformation);
-
     return {
       status: true,
     };
