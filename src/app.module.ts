@@ -10,6 +10,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { MajorModule } from "./major/major.module";
 import { SubjectModule } from "./subject/subject.module";
 import { AuthModule } from "./auth/auth.module";
+import { ScoreModule } from './score/score.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from "./auth/auth.module";
     UserModule,
     MajorModule,
     SubjectModule,
+    ScoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
