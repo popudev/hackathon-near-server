@@ -9,6 +9,7 @@ import { JwtModule } from "@nestjs/jwt";
 
 import { MajorModule } from "./major/major.module";
 import { SubjectModule } from "./subject/subject.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SubjectModule } from "./subject/subject.module";
       global: true,
       secret: process.env.SECRET_KEY,
     }),
+    AuthModule,
     UserModule,
     MajorModule,
     SubjectModule,
