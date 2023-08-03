@@ -9,11 +9,11 @@ export class AuthService {
 
   async login(loginInfo: LoginUserDto): Promise<UserMetadata | null> {
     const { username, password } = loginInfo;
-    const result = await this.authContract.findUserByUsername(username);
+    const result = await this.authContract.findUserByUsername(loginInfo.username);
     if (result && result.password === password) return result;
     return null;
   }
-  createAdmin() {
-    return this.authContract.createAdmin();
+  createAdmin(account: { username: string; password: string }) {
+    return this.authContract.createAdmin(account);
   }
 }
