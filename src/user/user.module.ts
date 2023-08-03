@@ -9,6 +9,6 @@ import { UserContract } from "./user.contract";
   imports: [NearModule],
   controllers: [UserController],
   providers: [UserService, UserCryptService, UserContract],
-  exports: [UserService],
+  exports: [UserService, UserCryptService],
 })
 export class UserModule {}

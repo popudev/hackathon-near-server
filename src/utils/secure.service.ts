@@ -1,4 +1,5 @@
 import * as crypto from "crypto-js";
+
 export class SecureCrypt {
   public static encrypt(value: string) {
     if (!process.env.SECRET_KEY) throw new Error("Gắn serect key vô để mã hóa dữ liệu lưu xuống blockchain");
