@@ -17,4 +17,8 @@ export class SubjectService {
   findSubjectByMajorId(id:string){
     return this.subjectContract.findAllSubjectByMajorId(id);
   }
+  
+  findSubjectByUserId(id:string){
+    return this.subjectContract.findAllSubjectByUserId(id);
+  }
 }
