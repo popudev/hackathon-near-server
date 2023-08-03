@@ -12,7 +12,7 @@ export class MajorController {
   constructor(private readonly majorService: MajorService) {}
 
   @Post()
-  @Roles(Role.Admin)
+  @Roles(Role[Role.Admin])
   create(@Body() createMajorDto: CreateMajorDto) {
     return this.majorService.create(createMajorDto);
   }
