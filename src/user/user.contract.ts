@@ -21,6 +21,7 @@ export class UserContract {
           "create_admin_user",
           "active_student_user",
           "assignment",
+          "active_instructor_user",
         ],
       })
       .then((contract) => (this.contract = contract));
