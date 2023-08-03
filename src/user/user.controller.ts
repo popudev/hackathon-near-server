@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, Put, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body,Put, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthGuard } from "@common/guards/auth.guard";
@@ -18,7 +18,6 @@ export class UserController {
   @Roles(Role.Admin)
   test(@Information() userInformation) {
     console.log("Decor", userInformation);
-
     return {
       status: true,
     };
@@ -28,6 +27,12 @@ export class UserController {
   @Roles(Role.Admin)
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Post("/instructor/assignment")
+  assignInstructor(@Body() assignInstructor: AssignInstructorDto) {
+    console.log("assignInstructor: ", assignInstructor);
+    return this.userService.assignInstructor(assignInstructor);
   }
 
   @Get("/instructor")
@@ -49,13 +54,9 @@ export class UserController {
   activeStudent(@Body() activeStudentDto: ActiveUserDto) {
     return this.userService.activeStudent(activeStudentDto);
   }
+
   @Put("/active/instructor")
   activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
     return this.userService.activeInstructor(activeInstructorDto);
-  }
-
-  @Put("/instructor/assigment")
-  assignInstructor(assignInstructor: AssignInstructorDto) {
-    return this.userService.assignInstructor(assignInstructor);
   }
 }
