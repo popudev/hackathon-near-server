@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, Put } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { Response } from "express";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -7,6 +7,7 @@ import { LoginUserDto } from "./dto/login-user.dto";
 import { UserPayload } from "types/responses";
 import { JwtService } from "@nestjs/jwt";
 import { ActiveUserDto } from "./dto/active-user.dto";
+import { AssignInstructorDto } from "./dto/assign-instructor.dto";
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService, private jwtService: JwtService) {}
@@ -54,12 +55,17 @@ export class UserController {
     return this.userService.createInstructorUser(createUserDto);
   }
 
-  @Post("/active/student")
+  @Put("/active/student")
   activeStudent(@Body() activeStudentDto: ActiveUserDto) {
     return this.userService.activeStudent(activeStudentDto);
   }
-  @Post("/active/instructor")
+  @Put("/active/instructor")
   activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
     return this.userService.activeInstructor(activeInstructorDto);
+  }
+
+  @Put()
+  assignInstructor(assignInstructor: AssignInstructorDto) {
+    return this.userService.assignInstructor(assignInstructor);
   }
 }
