@@ -1,7 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { LoginUserDto } from "./dto/login-user.dto";
 import { UserCryptService } from "./user.crypt";
 import { UserContract } from "./user.contract";
 import { UserMetadata } from "types/entities";
@@ -9,14 +7,6 @@ import { ActiveUserDto } from "./dto/active-user.dto";
 @Injectable()
 export class UserService {
   constructor(private readonly userCryptService: UserCryptService, private readonly userContract: UserContract) {}
-
-  async login(loginInfo: LoginUserDto): Promise<UserMetadata | null> {
-    const { username, password } = loginInfo;
-    const result = await this.userContract.findUserByUsername(username);
-    console.log("result: ", result);
-    if (result && result.password === password) return result;
-    return null;
-  }
 
   createStudentUser(createUserDto: CreateUserDto) {
     const userEncrypted = this.userCryptService.encryptCreateUserDto(createUserDto);
@@ -32,11 +22,6 @@ export class UserService {
       user_id: createUserDto.user_id,
       ...userEncrypted,
     });
-  }
-
-  createAdmin() {
-    console.log("createAdmin");
-    return this.userContract.createAdmin();
   }
 
   async findAll() {

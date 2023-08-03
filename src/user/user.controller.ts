@@ -1,40 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Post, Body, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { Response } from "express";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { LoginUserDto } from "./dto/login-user.dto";
-import { UserPayload } from "types/responses";
-import { JwtService } from "@nestjs/jwt";
+import { AuthGuard } from "@common/guards/auth.guard";
+import { Roles } from "@common/decorators/roles.decorator";
+import { Information } from "@common/decorators/information.decorator";
+import { RolesGuard } from "@common/guards/roles.guard";
+import { Roles as Role } from "types";
 import { ActiveUserDto } from "./dto/active-user.dto";
+
 @Controller("user")
+@UseGuards(AuthGuard, RolesGuard)
 export class UserController {
-  constructor(private readonly userService: UserService, private jwtService: JwtService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Post("login")
-  async login(@Body() LoginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response): Promise<UserPayload> {
-    const { username, password } = LoginUserDto;
-    const result = await this.userService.login({ username, password });
-    if (result) {
-      const accessToken = await this.jwtService.signAsync(result);
-      res.status(HttpStatus.OK);
-      return { accessToken, status: true };
-    }
-    res.status(HttpStatus.UNAUTHORIZED);
-    return { accessToken: null, status: false };
-  }
+  @Get("test")
+  @Roles(Role.Admin)
+  test(@Information() userInformation) {
+    console.log("Decor", userInformation);
 
-  @Get("createAdmin")
-  createAdmin() {
-    return this.userService.createAdmin();
-  }
-
-  @Get("login")
-  test(@Body() LoginUserDto: LoginUserDto) {
-    console.log("test");
+    return {
+      status: true,
+    };
   }
 
   @Get()
+  @Roles(Role.Admin)
   findAll() {
     return this.userService.findAll();
   }

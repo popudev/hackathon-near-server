@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { LoginUserDto } from "./dto/login-user.dto";
 import { SecureCrypt } from "src/utils/secure.service";
 import { User } from "./entities/user.entity";
 import { ActiveUserDto } from "./dto/active-user.dto";
+import { LoginUserDto } from "src/auth/dto/login-user.dto";
 @Injectable()
 export class UserCryptService {
   public encryptCreateUserDto(createUserDto: CreateUserDto) {
