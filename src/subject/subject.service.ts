@@ -13,4 +13,12 @@ export class SubjectService {
   findAll() {
     return this.subjectContract.findAllSubject();
   }
+
+  findSubjectByMajorId(id:string){
+    return this.subjectContract.findAllSubjectByMajorId(id);
+  }
+  
+  findSubjectByUserId(id:string){
+    return this.subjectContract.findAllSubjectByUserId(id);
+  }
 }

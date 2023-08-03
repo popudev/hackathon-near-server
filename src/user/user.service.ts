@@ -33,7 +33,7 @@ export class UserService {
 
   async findAllInstructor() {
     const users = await this.findAll();
-    return users.map((u) => u.role === "Instructor");
+    return users.filter((u) => u.role === "Instructor");
   }
 
   async activeStudent(activeStudentDto: ActiveUserDto) {

@@ -14,7 +14,13 @@ export class UserContract {
     this.nearService
       .getContract({
         viewMethods: ["get_all_user_metadata", "get_user_metadata_by_username"],
-        changeMethods: ["create_instructor_user", "create_student_user", "create_admin_user", "active_student_user"],
+        changeMethods: [
+          "create_instructor_user",
+          "create_student_user",
+          "create_admin_user",
+          "active_student_user",
+          "assignment",
+        ],
       })
       .then((contract) => (this.contract = contract));
   }

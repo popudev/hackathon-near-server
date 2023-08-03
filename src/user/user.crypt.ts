@@ -16,9 +16,8 @@ export class UserCryptService {
   }
 
   public encyptActiveUserDto(activeUserDto: ActiveUserDto) {
-    const username = SecureCrypt.encrypt(activeUserDto.username);
     const password = SecureCrypt.encrypt(activeUserDto.password);
-    return { ...activeUserDto, username, password };
+    return { ...activeUserDto, password };
   }
 
   public decryptUser(user: User) {
