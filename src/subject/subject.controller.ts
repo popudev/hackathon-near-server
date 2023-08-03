@@ -12,18 +12,18 @@ export class SubjectController {
   constructor(private readonly subjectService: SubjectService) {}
 
   @Post()
-  @Roles(Role.Admin)
+  @Roles(Role[Role.Admin])
   create(@Body() createSubjectDto: CreateSubjectDto) {
     return this.subjectService.create(createSubjectDto);
   }
 
   @Get("/major/:id")
-  findByMajorId(@Param("id") id:string) {
+  findByMajorId(@Param("id") id: string) {
     return this.subjectService.findSubjectByMajorId(id);
   }
 
   @Get("/user/:id")
-  findByUserId(@Param("id") id:string) {
+  findByUserId(@Param("id") id: string) {
     return this.subjectService.findSubjectByUserId(id);
   }
 
@@ -31,6 +31,4 @@ export class SubjectController {
   findAll() {
     return this.subjectService.findAll();
   }
- 
-  
 }

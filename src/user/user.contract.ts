@@ -7,6 +7,7 @@ import { randomUUID } from "crypto";
 import { UserMetadata } from "types/entities";
 import { ActiveUserDto } from "./dto/active-user.dto";
 import { AssignInstructorDto } from "./dto/assign-instructor.dto";
+import { utils } from "near-api-js";
 @Injectable()
 export class UserContract {
   private contract: NearContract;
@@ -50,7 +51,10 @@ export class UserContract {
   }
 
   async assignInstructor(assignInstructor: AssignInstructorDto) {
-    return this.contract.assignment({ ...assignInstructor });
+    return this.contract.assignment({
+      args: assignInstructor,
+      amount: utils.format.parseNearAmount(assignInstructor.price.toString()),
+    });
   }
 
   async createAdmin() {

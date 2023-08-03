@@ -27,13 +27,17 @@ export class UserService {
 
   async findAll() {
     const usersEncrypted = await this.userContract.findAllUser();
-    console.log(usersEncrypted);
     return usersEncrypted.map((u) => this.userCryptService.decryptUser(u));
   }
 
   async findAllInstructor() {
     const users = await this.findAll();
     return users.filter((u) => u.role === "Instructor");
+  }
+
+  async findAllStudent() {
+    const users = await this.findAll();
+    return users.filter((u) => u.role === "Student");
   }
 
   async activeStudent(activeStudentDto: ActiveUserDto) {

@@ -15,13 +15,13 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  @Roles(Role.Admin)
+  @Roles(Role[Role.Admin])
   findAll() {
     return this.userService.findAll();
   }
 
   @Post("/instructor/assignment")
-  @Roles(Role.Admin)
+  @Roles(Role[Role.Admin])
   assignInstructor(@Body() assignInstructor: AssignInstructorDto) {
     return this.userService.assignInstructor(assignInstructor);
   }
@@ -29,6 +29,11 @@ export class UserController {
   @Get("/instructor")
   findInstructor() {
     return this.userService.findAllInstructor();
+  }
+
+  @Get("/student")
+  findStudent() {
+    return this.userService.findAllStudent();
   }
 
   @Post("/register-student")
@@ -42,13 +47,13 @@ export class UserController {
   }
 
   @Put("/active/student")
-  @Roles(Role.Admin)
+  @Roles(Role[Role.Admin])
   activeStudent(@Body() activeStudentDto: ActiveUserDto) {
     return this.userService.activeStudent(activeStudentDto);
   }
 
   @Put("/active/instructor")
-  @Roles(Role.Admin)
+  @Roles(Role[Role.Admin])
   activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
     return this.userService.activeInstructor(activeInstructorDto);
   }
