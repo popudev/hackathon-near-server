@@ -6,6 +6,7 @@ import { User } from "./entities/user.entity";
 import { randomUUID } from "crypto";
 import { UserMetadata } from "types/entities";
 import { ActiveUserDto } from "./dto/active-user.dto";
+import { AssignInstructorDto } from "./dto/assign-instructor.dto";
 @Injectable()
 export class UserContract {
   private contract: NearContract;
@@ -40,6 +41,10 @@ export class UserContract {
 
   async activeInstructor(activeInstructorDto: ActiveUserDto) {
     return this.contract.active_instructor_user({ ...activeInstructorDto });
+  }
+
+  async assignInstructor(assignInstructor: AssignInstructorDto) {
+    return this.contract.assignment({ ...assignInstructor });
   }
 
   async createAdmin() {
