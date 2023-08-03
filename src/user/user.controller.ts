@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { JwtService } from "@nestjs/jwt";
 import { AuthGuard } from "@common/guards/auth.guard";
 import { Roles } from "@common/decorators/roles.decorator";
 import { Information } from "@common/decorators/information.decorator";
 import { RolesGuard } from "@common/guards/roles.guard";
-import { Roles as Role } from "types";
+import { Roles as Role } from "types/entities";
+import { ActiveUserDto } from "./dto/active-user.dto";
 
 @Controller("user")
 @UseGuards(AuthGuard, RolesGuard)
@@ -23,29 +23,33 @@ export class UserController {
     };
   }
 
-  @Get("mock")
-  mock() {
-    const users = [
-      {
-        full_name: "Bui Manh Thanh",
-        date_of_birth: "25/10/2002",
-        email: "manhthanh147@gmail.com",
-        phone: "0328735659",
-        national_identity_card: "159753",
-        national_identity_card_date: "25/10/2023",
-      },
-    ];
-    return users.forEach((u) => this.userService.create(u));
-  }
-
   @Get()
   @Roles(Role.Admin)
   findAll() {
     return this.userService.findAll();
   }
 
-  @Post()
-  register(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @Get("/instructor")
+  findInstructor() {
+    return this.userService.findAllInstructor();
+  }
+
+  @Post("/register-student")
+  registerStudent(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createStudentUser(createUserDto);
+  }
+
+  @Post("/register-instructor")
+  registerInstructor(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createInstructorUser(createUserDto);
+  }
+
+  @Post("/active/student")
+  activeStudent(@Body() activeStudentDto: ActiveUserDto) {
+    return this.userService.activeStudent(activeStudentDto);
+  }
+  @Post("/active/instructor")
+  activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
+    return this.userService.activeInstructor(activeInstructorDto);
   }
 }
