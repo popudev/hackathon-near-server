@@ -21,7 +21,6 @@ export class SubjectContract {
     console.log("createSubject: ", createSubject);
     const { major_id, thumbnail, prerequisite_subject_id, title, description, price, number_of_credits } =
       createSubject;
-
     return this.contract.create_subject({
       subject_id: randomUUID(),
       major_id,

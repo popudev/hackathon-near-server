@@ -5,6 +5,7 @@ import { LoginUserDto } from "./dto/login-user.dto";
 import { UserCryptService } from "./user.crypt";
 import { UserContract } from "./user.contract";
 import { UserMetadata } from "types/entities";
+import { ActiveUserDto } from "./dto/active-user.dto";
 @Injectable()
 export class UserService {
   constructor(private readonly userCryptService: UserCryptService, private readonly userContract: UserContract) {}
@@ -12,6 +13,7 @@ export class UserService {
   async login(loginInfo: LoginUserDto): Promise<UserMetadata | null> {
     const { username, password } = loginInfo;
     const result = await this.userContract.findUserByUsername(username);
+    console.log("result: ", result);
     if (result && result.password === password) return result;
     return null;
   }
@@ -45,6 +47,15 @@ export class UserService {
 
   async findAllInstructor() {
     const users = await this.findAll();
-    return users.map((u) => u);
+    return users.map((u) => u.role === "Instructor");
+  }
+
+  async activeStudent(activeStudentDto: ActiveUserDto) {
+    const userEncrypted = this.userCryptService.encyptActiveUserDto(activeStudentDto);
+    return this.userContract.activeStudent(userEncrypted);
+  }
+  async activeInstructor(activeInstructorDto: ActiveUserDto) {
+    const userEncrypted = this.userCryptService.encyptActiveUserDto(activeInstructorDto);
+    return this.userContract.activeInstructor(userEncrypted);
   }
 }
