@@ -64,7 +64,7 @@ export class UserController {
     return this.userService.activeInstructor(activeInstructorDto);
   }
 
-  @Put()
+  @Put("/instructor/assigment")
   assignInstructor(assignInstructor: AssignInstructorDto) {
     return this.userService.assignInstructor(assignInstructor);
   }
