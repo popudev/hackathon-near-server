@@ -40,6 +40,12 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Post("/instructor/assignment")
+  assignInstructor(@Body() assignInstructor: AssignInstructorDto) {
+    console.log("assignInstructor: ", assignInstructor);
+    return this.userService.assignInstructor(assignInstructor);
+  }
+
   @Get("/instructor")
   findInstructor() {
     return this.userService.findAllInstructor();
@@ -59,13 +65,9 @@ export class UserController {
   activeStudent(@Body() activeStudentDto: ActiveUserDto) {
     return this.userService.activeStudent(activeStudentDto);
   }
+
   @Put("/active/instructor")
   activeInstructor(@Body() activeInstructorDto: ActiveUserDto) {
     return this.userService.activeInstructor(activeInstructorDto);
-  }
-
-  @Put()
-  assignInstructor(assignInstructor: AssignInstructorDto) {
-    return this.userService.assignInstructor(assignInstructor);
   }
 }
