@@ -1,6 +1,6 @@
 export class CreateSubjectDto {
   subject_id?: string;
-  marjor_id: string;
+  major_id: string;
   thumbnail: string;
   title: string;
   description: string;
