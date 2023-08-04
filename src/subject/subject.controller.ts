@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from "@nestjs/common";
 import { SubjectService } from "./subject.service";
 import { CreateSubjectDto } from "./dto/create-subject.dto";
 import { UpdateSubjectDto } from "./dto/update-subject.dto";
@@ -23,12 +23,15 @@ export class SubjectController {
   }
 
   @Get("/user/:id")
+  @Roles(Role[Role.Admin], Role[Role.Student], Role[Role.Instructor])
   findByUserId(@Param("id") id: string) {
     return this.subjectService.findSubjectByUserId(id);
   }
 
   @Get()
-  findAll() {
-    return this.subjectService.findAll();
+  @Roles(Role[Role.Admin], Role[Role.Student], Role[Role.Instructor])
+  findAll(@Request() req: any) {
+    if (req.user?.role === "Admin") return this.subjectService.findAll();
+    return this.subjectService.findSubjectByMajorId(req.user.major_id);
   }
 }

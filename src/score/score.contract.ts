@@ -9,13 +9,17 @@ export class ScoreContract {
   constructor(private readonly nearService: NearService) {
     this.nearService
       .getContract({
-        viewMethods: ["get_all_subject_metadata_by_user_id"],
+        viewMethods: ["get_all_subject_metadata_by_user_id", "get_all_subject_metadata_by_subject_id"],
         changeMethods: [],
       })
       .then((contract) => (this.contract = contract));
   }
-  
-  findScoreByUserId(user_id:string){
-    return this.contract.get_all_subject_metadata_by_user_id({user_id});
+
+  findScoreByUserId(user_id: string) {
+    return this.contract.get_all_subject_metadata_by_user_id({ user_id });
+  }
+
+  findScoreBySubjecId(subject_id: string) {
+    return this.contract.get_all_subject_metadata_by_subject_id({ subject_id });
   }
 }
