@@ -3,6 +3,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { SecureCrypt } from "src/utils/secure.service";
 import { User } from "./entities/user.entity";
 import { ActiveUserDto } from "./dto/active-user.dto";
+import { UserMetadata } from "types/entities";
 @Injectable()
 export class UserCryptService {
   public encryptCreateUserDto(createUserDto: CreateUserDto) {
@@ -20,13 +21,21 @@ export class UserCryptService {
     return { ...activeUserDto, password };
   }
 
-  public decryptUser(user: User) {
+  public decryptUser(user: User): UserMetadata {
     const full_name = SecureCrypt.decrypt(user.full_name);
     const date_of_birth = SecureCrypt.decrypt(user.date_of_birth);
     const email = SecureCrypt.decrypt(user.email);
     const phone = SecureCrypt.decrypt(user.phone);
     const national_identity_card = SecureCrypt.decrypt(user.national_identity_card);
     const national_identity_card_date = SecureCrypt.decrypt(user.national_identity_card_date);
-    return { ...user, full_name, date_of_birth, email, phone, national_identity_card, national_identity_card_date };
+    return {
+      ...user,
+      full_name,
+      date_of_birth,
+      email,
+      phone,
+      national_identity_card,
+      national_identity_card_date,
+    } as UserMetadata;
   }
 }

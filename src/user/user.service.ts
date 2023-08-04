@@ -5,6 +5,9 @@ import { UserContract } from "./user.contract";
 import { UserMetadata } from "types/entities";
 import { ActiveUserDto } from "./dto/active-user.dto";
 import { AssignInstructorDto } from "./dto/assign-instructor.dto";
+import { QueryStudentDto } from "./dto/query-student.dto";
+import { User } from "./entities/user.entity";
+import { UpdateScoreDto } from "./dto/update-score.dto";
 @Injectable()
 export class UserService {
   constructor(private readonly userCryptService: UserCryptService, private readonly userContract: UserContract) {}
@@ -50,5 +53,18 @@ export class UserService {
   }
   async assignInstructor(assignInstructorDto: AssignInstructorDto) {
     return this.userContract.assignInstructor(assignInstructorDto);
+  }
+
+  async getStudentBySubjectId(queryStudentDTO: QueryStudentDto) {
+    const result = await this.userContract.getStudentBySubjectId(queryStudentDTO);
+    const dataDecrypted: [UserMetadata] = [] as unknown as [UserMetadata];
+    result.forEach((element) => {
+      dataDecrypted.push(this.userCryptService.decryptUser(element));
+    });
+    return dataDecrypted;
+  }
+
+  async createScore(updateScoreDto: UpdateScoreDto) {
+    return this.userContract.createScore(updateScoreDto);
   }
 }
