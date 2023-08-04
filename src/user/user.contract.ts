@@ -8,6 +8,9 @@ import { UserMetadata } from "types/entities";
 import { ActiveUserDto } from "./dto/active-user.dto";
 import { AssignInstructorDto } from "./dto/assign-instructor.dto";
 import { utils } from "near-api-js";
+import { QueryStudentDto } from "./dto/query-student.dto";
+import { UpdateScoreDto } from "./dto/update-score.dto";
+
 @Injectable()
 export class UserContract {
   private contract: NearContract;
@@ -22,6 +25,8 @@ export class UserContract {
           "active_student_user",
           "assignment",
           "active_instructor_user",
+          "get_all_student_user_metadata_by_subject_id",
+          "create_score",
         ],
       })
       .then((contract) => (this.contract = contract));
@@ -68,5 +73,13 @@ export class UserContract {
 
   async findAllUser(): Promise<User[]> {
     return this.contract.get_all_user_metadata();
+  }
+
+  async getStudentBySubjectId(queryStudentDTO: QueryStudentDto): Promise<[UserMetadata]> {
+    return this.contract.get_all_student_user_metadata_by_subject_id(queryStudentDTO);
+  }
+
+  async createScore(updateScoreDTO: UpdateScoreDto) {
+    return this.contract.create_score(updateScoreDTO);
   }
 }
