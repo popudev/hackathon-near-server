@@ -32,6 +32,7 @@ export class SubjectController {
   @Roles(Role[Role.Admin], Role[Role.Student], Role[Role.Instructor])
   findAll(@Request() req: any) {
     if (req.user?.role === "Admin") return this.subjectService.findAll();
-    return this.subjectService.findSubjectByMajorId(req.user.major_id);
+    if (req.user.major_id) return this.subjectService.findSubjectByMajorId(req.user.major_id);
+    return [];
   }
 }
